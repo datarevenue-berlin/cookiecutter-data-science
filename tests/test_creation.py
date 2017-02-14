@@ -52,13 +52,6 @@ def test_requirements(default_baked_project):
     assert no_curlies(reqs_path)
 
 
-def test_makefile(default_baked_project):
-    makefile_path = os.path.join(default_baked_project, 'Makefile')
-
-    assert os.path.exists(makefile_path)
-    assert no_curlies(makefile_path)
-
-
 def test_folders(default_baked_project):
     expected_dirs = [
         'data',
@@ -72,16 +65,15 @@ def test_folders(default_baked_project):
         'references',
         'reports',
         os.path.join('reports', 'figures'),
-        'src',
-        os.path.join('src', 'data'),
-        os.path.join('src', 'features'),
-        os.path.join('src', 'models'),
-        os.path.join('src', 'visualization')
+        'project_name',
+        os.path.join('project_name', 'data'),
+        os.path.join('project_name', 'features'),
+        os.path.join('project_name', 'models'),
+        os.path.join('project_name', 'visualization')
     ]
 
     ignored_dirs = [
         default_baked_project,
-        os.path.join(default_baked_project, '__pycache__')
         ]
 
     abs_expected_dirs = [os.path.join(default_baked_project, d) for
