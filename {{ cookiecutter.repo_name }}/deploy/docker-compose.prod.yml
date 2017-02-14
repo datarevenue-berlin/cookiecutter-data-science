@@ -1,0 +1,52 @@
+version: '2'
+services:
+    worker:
+        depends_on:
+            - luigid
+            #- logger
+        image: drtools/{{ cookiecutter.repo_name }}-worker:main
+        build:
+          context: .
+          dockerfile: main.dockerfile
+        volumes:
+            - /srv/data/{{ cookiecutter.repo_name }}:/srv/data/{{ cookiecutter.repo_name }}
+            - /srv/logs/{{ cookiecutter.repo_name }}:/srv/logs/{{ cookiecutter.repo_name }}
+            - /srv/tmp:/tmp
+        environment:
+            - LUIGI_CONFIG_PATH=/luigi.cfg
+
+        entrypoint: /bin/bash
+
+        command: -c "luigi --module {{ cookiecutter.repo_name }} MakeForecast"
+
+    luigid:
+        restart: on-failure
+        image: drtools/{{ cookiecutter.repo_name }}-worker:main
+        build:
+          context: .
+          dockerfile: main.dockerfile
+        volumes:
+            - log_data:/var/log/
+
+    dask-scheduler:
+      image: drtools/{{ cookiecutter.repo_name }}-worker:main
+      build:
+        context: .
+        dockerfile: main.dockerfile
+
+    dask-worker:
+      image: drtools/{{ cookiecutter.repo_name }}-worker:main
+      build:
+        context: .
+        dockerfile: main.dockerfile
+#    logger:
+#        image: drtools/{{ cookiecutter.repo_name }}:main
+#
+#        user: "ubuntu"
+#
+#        restart: on-failure
+#
+#        volumes:
+#            - log_data:/tmp/log
+#        entrypoint: /bin/bash
+#        command: -c "upload_logs /tmp/log 's3://is24-kodex-scoring/logs'"

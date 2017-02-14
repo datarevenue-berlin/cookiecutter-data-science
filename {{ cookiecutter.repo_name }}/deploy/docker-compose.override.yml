@@ -1,0 +1,71 @@
+version: '2'
+services:
+    #assumes that <local-dev-dir> is bound to /home/ubuntu/bin via DVC defined in CODE_DVC
+    worker:
+      depends_on:
+          - luigid
+
+      command: /bin/bash
+
+      # comment this section to run `docker-compose build`
+      volumes:
+          - /srv/data/{{ cookiecutter.repo_name }}:/srv/data/{{ cookiecutter.repo_name }}
+          - $HOME:/ubuntu/home
+          - /srv/tmp:/tmp
+
+      environment:
+          - PATH=/home/ubuntu/.local/bin:$PATH
+          - PYTHONPATH=/home/ubuntu/bin/
+          - DRTOOLS_SETTINGS_MODULE={{ cookiecutter.repo_name }}.settings.default
+          - LUIGI_CONFIG_PATH=/home/ubuntu/bin/luigi-worker.cfg
+
+    wheelbuilder:
+      image: drtools/{{ cookiecutter.repo_name }}-worker:dev
+      build:
+        context: .
+        dockerfile: dev.dockerfile
+
+      user: ubuntu
+      working_dir: /home/ubuntu
+      volumes:
+        - $HOME/wheelhouse:/home/ubuntu/wheelhouse
+
+      command: |
+        git clone git@github.com:datarevenue-berlin/{{ cookiecutter.repo_name }}.git &&
+        cd {{ cookiecutter.repo_name }} &&
+        git checkout $BUILD_RELEASE &&
+        pip wheel . --build-dir ../wheelhouse --process-dependency-links
+
+    # starts a notebook server with bound code on port $NBSERVER_PORT
+    nbserver:
+      image: drtools/{{ cookiecutter.repo_name }}-worker:dev
+      build:
+        context: .
+        dockerfile: dev.dockerfile
+
+      command: /usr/local/bin/jupyter notebook
+      user: "ubuntu"
+      working_dir: /home/ubuntu/bin/notebooks
+
+      links:
+        - dask-scheduler
+
+      depends_on:
+          - dask-scheduler
+          - dask-worker
+
+      # comment this section to run `docker-compose build`
+      volumes:
+          - /srv/data/{{ cookiecutter.repo_name }}:/srv/data/{{ cookiecutter.repo_name }}
+          - $HOME:/ubuntu/home
+          - /srv/tmp:/tmp
+
+      environment:
+          - PATH=/home/ubuntu/.local/bin:$PATH
+          - PYTHONPATH=/home/ubuntu/bin/
+          - DRTOOLS_SETTINGS_MODULE={{ cookiecutter.repo_name }}.settings.default
+          - LUIGI_CONFIG_PATH=/home/ubuntu/bin/luigi-conf.cfg
+
+      entrypoint: /tini
+      ports:
+          - "$NBSERVER_PORT:8888"

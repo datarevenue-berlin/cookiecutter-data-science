@@ -1,0 +1,72 @@
+version: '2'
+services:
+    worker:
+        image: drtools/{{ cookiecutter.repo_name }}-worker:dev
+        build:
+          context: .
+          dockerfile: dev.dockerfile
+
+
+        links:
+            - luigid:LUIGID_HOST
+
+        user: "ubuntu"
+
+
+    luigid:
+        image: drtools/{{ cookiecutter.repo_name }}-worker:dev
+        build:
+          context: .
+          dockerfile: dev.dockerfile
+        ports:
+            - "8082:8082"
+
+    dask-scheduler:
+      image: drtools/{{ cookiecutter.repo_name }}-worker:dev
+      build:
+        context: .
+        dockerfile: dev.dockerfile
+
+      command: /home/ubuntu/.local/bin/dask-scheduler
+      user: "ubuntu"
+      working_dir: /home/ubuntu
+
+      environment:
+          - PATH=/home/ubuntu/.local/bin:$PATH
+          - LC_ALL=C.UTF-8
+          - LANG=C.UTF8
+
+      entrypoint: /bin/bash -c
+      ports:
+        - "8086:8687"
+        - "8087:8787"
+
+
+
+    dask-worker:
+      image: drtools/{{ cookiecutter.repo_name }}-worker:dev
+      build:
+        context: .
+        dockerfile: dev.dockerfile
+
+      user: "ubuntu"
+      working_dir: /home/ubuntu/
+
+      links:
+        - dask-scheduler
+
+      # comment this section to run `docker-compose build`
+      volumes:
+          - /srv/data/{{ cookiecutter.repo_name }}:/srv/data/{{ cookiecutter.repo_name }}
+          - $HOME:/ubuntu/home
+          - /srv/tmp:/tmp
+
+      environment:
+          - PATH=/home/ubuntu/.local/bin:$PATH
+          - PYTHONPATH=/home/ubuntu/bin/
+          - DRTOOLS_SETTINGS_MODULE={{ cookiecutter.repo_name }}.settings.default
+          - LUIGI_CONFIG_PATH=/home/ubuntu/bin/luigi-conf.cfg
+          - LC_ALL=C.UTF-8
+          - LANG=C.UTF8
+
+      command: "/home/ubuntu/.local/bin/dask-worker --nprocs {{ cookiecutter.nprocs }} --memory-limit {{ cookiecutter.mem_limit }} dask-scheduler:8786"
