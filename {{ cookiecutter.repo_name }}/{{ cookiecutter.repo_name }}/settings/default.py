@@ -4,7 +4,11 @@ import pandas as pd
 DEBUG = True
 
 DATA_DIR = os.path.abspath("../data")
-LOG_DIR = os.path.join(DATA_DIR, "log/")
+EXTERNAL_DATA_DIR = os.path.abspath('../data/external')
+INTERIM_DATA_DIR = os.path.abspath('../data/interim')
+PROCESSED_DATA_DIR = os.path.abspath('../data/processed')
+RAW_DATA_DIR = os.path.abspath('../data/raw')
+LOG_DIR = '/srv/log/{{ cookiecutter.repo_name }}'
 
 # ---------------------- DEFAULT COLS --------------------
 
