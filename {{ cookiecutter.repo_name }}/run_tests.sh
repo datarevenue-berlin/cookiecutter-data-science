@@ -11,9 +11,4 @@ export PYTHON_PATH=`pwd`:$PYTHON_PATH
 export DRTOOLS_SETTINGS_MODULE={{ cookiecutter.repo_name }}.settings.settings
 
 # RUN TESTS AND CREATE REPORTS
-python setup.py nosetests \
-            --with-coverage \
-            --cover-erase \
-            --cover-package drtools \
-            --cover-html \
-            --cover-html-dir=$CIRCLE_ARTIFACTS/coverage
+py.test {{ cookiecutter.repo_name }}

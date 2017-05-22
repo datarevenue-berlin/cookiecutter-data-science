@@ -11,4 +11,6 @@ setup(name='{{cookiecutter.repo_name}}',
       dependency_links = ['git+ssh://git@github.com/datarevenue-berlin/drtools_base.git@master#egg=drtools-{{cookiecutter.drtools_version}}'],
       install_requires=['drtools>={{cookiecutter.drtools_version}}'],
       packages=packages,
-      zip_safe=False)
+      package_data={'{{cookiecutter.repo_name}}.features': ['*.csv']},
+      zip_safe=False
+      )

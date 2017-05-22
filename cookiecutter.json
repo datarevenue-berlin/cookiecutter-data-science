@@ -10,6 +10,6 @@
     "aggregation_window": 90,
     "lead_window": 3,
     "data_delay": 1,
-    "nprocs":8,
-    "mem_limit":0.5
+    "nprocs": 8,
+    "mem_limit": 0.5
 }

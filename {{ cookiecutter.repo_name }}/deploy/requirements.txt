@@ -1,0 +1,11 @@
+git+https://github.com/datarevenue-berlin/sparsity.git
+git+https://github.com/paradoxxxzero/better-exceptions-hook.git
+wheel
+tornado==4.4.0
+bokeh==0.12.5
+fastparquet==0.0.6
+dask[complete]
+llvmlite==0.17.1
+s3fs==0.0.9
+seaborn
+tqdm

@@ -46,7 +46,7 @@ def test_license(default_baked_project):
 
 
 def test_requirements(default_baked_project):
-    reqs_path = os.path.join(default_baked_project, 'requirements.txt')
+    reqs_path = os.path.join(default_baked_project, 'deploy/requirements.txt')
 
     assert os.path.exists(reqs_path)
     assert no_curlies(reqs_path)
@@ -69,7 +69,7 @@ def test_folders(default_baked_project):
         os.path.join('project_name', 'data'),
         os.path.join('project_name', 'features'),
         os.path.join('project_name', 'models'),
-        os.path.join('project_name', 'visualization')
+        os.path.join('project_name', 'analysis')
     ]
 
     ignored_dirs = [

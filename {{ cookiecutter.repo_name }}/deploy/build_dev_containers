@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+cd $HOME/bin/deploy/
+
+docker build -t drtools/{{cookiecutter.repo_name}}-worker:dev -f dev.dockerfile .
+docker build -t drtools/{{cookiecutter.repo_name}}-worker:jupyter -f jupyterhub/singleuser.dockerfile jupyterhub

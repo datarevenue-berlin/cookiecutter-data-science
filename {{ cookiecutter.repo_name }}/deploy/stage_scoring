@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -e
+cd $HOME/bin/deploy/
+export VERSION=${1:-`git rev-parse HEAD`}
+python -c \
+"print(' {wrap}\n\n{message:^100}\n\n {wrap}'
+        .format(wrap='='*100,
+                message='Staging {{cookiecutter.repo_name}}-worker:${VERSION}'))"
+
+printf "\n Executing live scoring on dev \n"
+COMPOSE_PROJECT_NAME=staging \
+PROD_SETTINGS={{cookiecutter.repo_name}}.settings.stage \
+docker-compose \
+    -f docker-compose.yml \
+    -f docker-compose.prod.yml \
+    up \
+        --no-build \
+        --exit-code-from worker
+
+

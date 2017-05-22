@@ -44,10 +44,10 @@ Project Organization
     │   ├── __init__.py    <- Makes src a Python module
     │   │
     │   ├── data           <- Scripts to download or generate data
-    │   │   └── make_dataset.py
+    │   │   └── dataset.py
     │   │
     │   ├── features       <- All kind of feature files
-    │   │   └──naive.csv
+    │   │   └──features.csv
     │   │
     │   ├── models         <- Scripts to train models and then use trained models to make
     │   │   │                 predictions

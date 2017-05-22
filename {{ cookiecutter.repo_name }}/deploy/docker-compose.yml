@@ -1,72 +1,69 @@
 version: '2'
 services:
     worker:
-        image: drtools/{{ cookiecutter.repo_name }}-worker:dev
+        image: drtools/{{cookiecutter.repo_name}}-worker:dev
         build:
           context: .
           dockerfile: dev.dockerfile
 
-
-        links:
-            - luigid:LUIGID_HOST
-
-        user: "ubuntu"
-
-
     luigid:
-        image: drtools/{{ cookiecutter.repo_name }}-worker:dev
+        image: drtools/{{cookiecutter.repo_name}}-worker:dev
+        container_name: luigid
         build:
           context: .
           dockerfile: dev.dockerfile
         ports:
             - "8082:8082"
 
+        command: luigid
+
     dask-scheduler:
-      image: drtools/{{ cookiecutter.repo_name }}-worker:dev
+      image: drtools/{{cookiecutter.repo_name}}-worker:dev
       build:
         context: .
         dockerfile: dev.dockerfile
 
-      command: /home/ubuntu/.local/bin/dask-scheduler
-      user: "ubuntu"
-      working_dir: /home/ubuntu
+      command: dask-scheduler
+      container_name: dask-scheduler
+
+      depends_on:
+          - dask-worker
 
       environment:
           - PATH=/home/ubuntu/.local/bin:$PATH
           - LC_ALL=C.UTF-8
           - LANG=C.UTF8
+          - LOCAL_GROUP_ID
+          - LOCAL_USER_ID
+          - LOCAL_USER
 
-      entrypoint: /bin/bash -c
       ports:
-        - "8086:8687"
-        - "8087:8787"
-
+        - "8787:8787"
+        - "8788:8788"
 
 
     dask-worker:
-      image: drtools/{{ cookiecutter.repo_name }}-worker:dev
+      image: drtools/{{cookiecutter.repo_name}}-worker:dev
       build:
         context: .
         dockerfile: dev.dockerfile
 
-      user: "ubuntu"
-      working_dir: /home/ubuntu/
-
-      links:
-        - dask-scheduler
-
-      # comment this section to run `docker-compose build`
       volumes:
-          - /srv/data/{{ cookiecutter.repo_name }}:/srv/data/{{ cookiecutter.repo_name }}
-          - $HOME:/ubuntu/home
-          - /srv/tmp:/tmp
+          - /srv/{{cookiecutter.repo_name}}/data:/srv/{{cookiecutter.repo_name}}/data
+          - $HOME:/home/ubuntu
+          - /srv/{{cookiecutter.repo_name}}/tmp:/tmp
 
       environment:
           - PATH=/home/ubuntu/.local/bin:$PATH
           - PYTHONPATH=/home/ubuntu/bin/
-          - DRTOOLS_SETTINGS_MODULE={{ cookiecutter.repo_name }}.settings.default
-          - LUIGI_CONFIG_PATH=/home/ubuntu/bin/luigi-conf.cfg
+          - DRTOOLS_SETTINGS_MODULE={{cookiecutter.repo_name}}.settings.dev
           - LC_ALL=C.UTF-8
           - LANG=C.UTF8
+          - LOCAL_GROUP_ID
+          - LOCAL_USER_ID
+          - LOCAL_USER
 
-      command: "/home/ubuntu/.local/bin/dask-worker --nprocs {{ cookiecutter.nprocs }} --memory-limit {{ cookiecutter.mem_limit }} dask-scheduler:8786"
+      ports:
+        - "8789:8789"
+
+      command: "dask-worker dask-scheduler:8786  --nprocs {{cookiecutter.nprocs}} --memory-limit {{cookiecutter.mem_limit}}"
