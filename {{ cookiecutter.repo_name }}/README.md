@@ -60,7 +60,6 @@
     │       └── visualize.py
 --------
 
-# IS24 User Scoring Application
 
 ## Get Started
 
