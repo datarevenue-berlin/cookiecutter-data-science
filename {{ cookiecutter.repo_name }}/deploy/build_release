@@ -18,6 +18,7 @@ docker run \
     -w /home/ubuntu \
     --entrypoint /bin/bash \
     -e "VERSION=${VERSION}" \
+    drtools/{{cookiecutter.repo_name}}-worker:dev \
          -c "git clone git@github.com:datarevenue-berlin/{{cookiecutter.repo_name}}.git &&
              cd {{cookiecutter.repo_name}} &&
              git checkout ${VERSION} &&
