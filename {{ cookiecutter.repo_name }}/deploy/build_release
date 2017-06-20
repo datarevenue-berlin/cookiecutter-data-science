@@ -18,7 +18,7 @@ docker run \
     -w /home/ubuntu \
     --entrypoint /bin/bash \
     -e "VERSION=${VERSION}" \
-         -c "git clone git@github.com:datarevenue-berlin/i{{cookiecutter.repo_name}}.git &&
+         -c "git clone git@github.com:datarevenue-berlin/{{cookiecutter.repo_name}}.git &&
              cd {{cookiecutter.repo_name}} &&
              git checkout ${VERSION} &&
              pip wheel . --wheel-dir ../wheelhouse --process-dependency-link &&
