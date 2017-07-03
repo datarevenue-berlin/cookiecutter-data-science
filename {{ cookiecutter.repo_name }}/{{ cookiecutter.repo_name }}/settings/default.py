@@ -24,7 +24,7 @@ DEFAULT_N_TEST_DAYS = 6
 # Slicing
 DATA_DELAY = {{ cookiecutter.data_delay }}
 DEFAULT_N_AGG_DAYS = {{ cookiecutter.aggregation_window }}
-N_LEAD_WINDOW_DAYS = {{ cookiecutter.lead_window }}
+LEAD_WINDOW_SIZE = {{ cookiecutter.lead_window }}
 
 DEFAULT_TRAIN_SAMPLE = 10
 DEFAULT_TEST_SAMPLE = 1
