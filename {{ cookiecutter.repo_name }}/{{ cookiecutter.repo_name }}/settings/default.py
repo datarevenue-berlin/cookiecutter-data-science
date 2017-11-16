@@ -3,12 +3,10 @@ import pandas as pd
 
 DEBUG = True
 
-DATA_DIR = os.path.abspath("../data")
-EXTERNAL_DATA_DIR = os.path.abspath('../data/external')
-INTERIM_DATA_DIR = os.path.abspath('../data/interim')
-PROCESSED_DATA_DIR = os.path.abspath('../data/processed')
-RAW_DATA_DIR = os.path.abspath('../data/raw')
-LOG_DIR = '/srv/log/{{ cookiecutter.repo_name }}'
+DATA_DIR = "{{ cookiecutter.storage_protocol }}://{{ cookiecutter.bucket }}/data/"
+RAW_DIR = "{{ cookiecutter.storage_protocol }}://{{ cookiecutter.bucket }}/data/raw"
+PROCESSED_DIR = "{{ cookiecutter.storage_protocol }}://{{ cookiecutter.bucket }}/data/processed"
+
 
 # ---------------------- DEFAULT COLS --------------------
 
