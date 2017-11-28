@@ -4,8 +4,9 @@ wheel
 tornado==4.5.2
 bokeh==0.12.10
 fastparquet==0.0.6
-dask[complete]
 llvmlite==0.17.1
+dask[complete]==0.16.0
+distributed==1.20.1
 s3fs==0.0.9
 seaborn
 tqdm
