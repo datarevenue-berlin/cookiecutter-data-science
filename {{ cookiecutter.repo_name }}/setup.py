@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 packages = find_packages()
 
-with open('deploz/requirements.txt') as fp:
+with open('deploy/requirements.txt') as fp:
       deps = fp.readlines()
 
 setup(name='{{cookiecutter.repo_name}}',
