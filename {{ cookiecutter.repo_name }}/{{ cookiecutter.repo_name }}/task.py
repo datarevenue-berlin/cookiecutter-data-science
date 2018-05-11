@@ -1,8 +1,8 @@
 import luigi
 import datetime as dt
+from drtools.utils.task import DockerTask
 
-
-class LivePredict(luigi.Task):
+class LivePredict(DockerTask):
 
     date = luigi.DateParameter(default=dt.date.today())
 

@@ -1,5 +1,10 @@
-# -*- coding: utf-8 -*-
+import click
 
 
-def read_raw_data(*args, **kwargs):
+@click.command()
+def cli():
     pass
+
+
+if __name__ == '__main__':
+    cli()

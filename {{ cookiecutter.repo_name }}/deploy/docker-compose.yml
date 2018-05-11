@@ -25,4 +25,6 @@ services:
       ports:
         - "8789:8789"
 
-      command: "dask-worker dask-scheduler:8786  --nprocs {{cookiecutter.nprocs}} --memory-limit {{cookiecutter.mem_limit}}"
+      command: > dask-worker dask-scheduler:8786
+                 --nprocs {{cookiecutter.dask_nprocs}}
+                 --memory-limit {{cookiecutter.dask_mem_limit}}
