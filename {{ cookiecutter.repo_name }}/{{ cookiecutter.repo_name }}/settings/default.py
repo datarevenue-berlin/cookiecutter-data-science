@@ -3,7 +3,7 @@ import pandas as pd
 
 DEBUG = True
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..'))
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 
 
 FS_OPTS = {}

@@ -19,7 +19,11 @@ def __factory():
         'ROOT': settings.ROOT,
         'RAW_DATA_DIR': path.join(settings.ROOT, 'data', 'raw/'),
         'PROCESSED_DIR': path.join(settings.ROOT, 'data', 'processed/'),
-        'EVAL_DIR': path.join(settings.ROOT, 'models/')
+        'EVAL_DIR': path.join(settings.ROOT, 'models/'),
+        'CS_IN': path.join(settings.ROOT, 'data', 'raw',
+                           'clickstream.csv'),
+        'CS_OUT': path.join(settings.ROOT, 'data', 'processed',
+                            'clickstream.pickle')
     })
     PATH_TEMPLATE.update({
     })
