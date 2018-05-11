@@ -10,10 +10,10 @@
     │   ├── external       <- Data from third party sources.
     │   ├── interim        <- Intermediate data that has been transformed.
     │   ├── processed      <- The final, canonical data sets for modeling.
-    │   │   ├── train      <- <min-date>-<max-date>-<dates-hash>-<feature-hash>.parquet
-    │   │   └── test       <- <date>-<feature-hash>.parquet
     │   └── raw            <- The original, immutable data dump.
     │
+    ├── deploy             <- deployment configurations
+    │   
     ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
     │
     ├── models             <- Trained and serialized models, model predictions, or model summaries
@@ -25,18 +25,14 @@
     │   │                     the creator's initials, and a short `-` delimited description, e.g.
     │   │                     `1.0-jqp-initial-data-exploration`.
     │   ├── exploratory    <- excluded from version control use for fast drafts
-    │   ├── experiments    <- use to run a whole experiment one folder per experiment
-    │   │                     with a executable pipeline.py and evaluation.py script
-    │   └── backtest       <- contains nicely polished notebooks that explain and
-    │                         visualize backtests to assess performance of a system.
+    │   └── experiments    <- use to run a whole experiment one folder per experiment
+    │                         with a executable pipeline.py and evaluation.py script
     │
-    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
+    ├── references         <- Publications, Data dictionaries, manuals, and all other explanatory materials.
     │
     ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
     │   └── figures        <- Generated graphics and figures to be used in reporting
     │
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-    │                         generated with `pip freeze > requirements.txt`
     │
     ├── src                <- Source code for use in this project.
     │   ├── __init__.py    <- Makes src a Python module
