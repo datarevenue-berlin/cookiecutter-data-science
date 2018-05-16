@@ -8,14 +8,14 @@ services:
 
       command: luigid
       networks:
-          - drnet
+          - dev
 
     dask-scheduler:
       image: drtools/drtools:latest
       command: dask-scheduler
       container_name: dask-scheduler
       networks:
-        - drnet
+        - dev
       depends_on:
           - dask-worker
       ports:
@@ -31,11 +31,11 @@ services:
       ports:
         - "8789:8789"
       networks:
-        - drnet
+        - dev
       command: >
                  dask-worker dask-scheduler:8786
                  --nprocs {{cookiecutter.dask_nprocs}}
                  --memory-limit {{cookiecutter.dask_mem_limit}}
 networks:
-  drnet:
+  dev:
     external: false

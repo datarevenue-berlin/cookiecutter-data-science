@@ -17,19 +17,6 @@ class Example(DockerTask):
     def name(self):
         return 'test-template-container'
 
-    @property
-    def configuration(self):
-        return {
-            'environment': {
-                'DRTOOLS_SETTINGS_MODULE':
-                    '{{ cookiecutter.project_name }}.settings.default'
-            },
-            'volumes': {
-                PATH['ROOT']: {'bind': '/home/drtools/{{cookiecutter.project_name}}/'}
-            },
-            'networks': 'deploy_drnet'
-        }
-
     def requires(self):
         return ClientUpload()
 

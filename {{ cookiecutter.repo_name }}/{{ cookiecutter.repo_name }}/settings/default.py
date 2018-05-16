@@ -3,10 +3,16 @@ import pandas as pd
 
 DEBUG = True
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
-
-
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                    '..', '..', 'root_dir'))
 FS_OPTS = {}
+CONTAINER_TASK_ENV = {
+    'DRTOOLS_SETTINGS_MODULE': '{{cookiecutter.project_name}}.settings.default'
+}
+CONTAINER_TASK_VOLUMES = {
+    ROOT: {'bind': '/home/drtools/{{cookiecutter.project_name}}/root_dir'}
+}
+CONTAINER_TASK_NET='{{cookiecutter.project_name}}_dev'
 
 # ---------------------- Data Processing --------------------
 
