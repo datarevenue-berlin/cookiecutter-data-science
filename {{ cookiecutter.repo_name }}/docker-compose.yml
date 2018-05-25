@@ -1,14 +1,14 @@
-version: '2'
+version: '2.1'
 services:
     luigid:
       image: axiom/docker-luigi
       container_name: luigid
       ports:
-          - "8082:8082"
+        - "8082:8082"
 
       command: luigid
       networks:
-          - dev
+        - dev
 
     dask-scheduler:
       image: drtools/drtools:latest
@@ -16,17 +16,17 @@ services:
       container_name: dask-scheduler
       networks:
         - dev
-      depends_on:
-          - dask-worker
       ports:
         - "8787:8787"
         - "8788:8788"
 
 
     dask-worker:
-      image: drtools/drtools:latest
+      image: drtools/{{ cookiecutter.repo_name }}:latest
+      depends_on:
+        - dask-scheduler
       volumes:
-        - "$PWD/root_dir:/home/drtools/{{ cookiecutter.repo_name }}/root_dir"
+        - ./root_dir:/home/drtools/{{ cookiecutter.repo_name }}/root_dir
       ports:
         - "8789:8789"
       networks:
@@ -35,6 +35,14 @@ services:
                  dask-worker dask-scheduler:8786
                  --nprocs {{cookiecutter.dask_nprocs}}
                  --memory-limit {{cookiecutter.dask_mem_limit}}
+
+    controller:
+      image: drtools/{{ cookiecutter.repo_name }}:latest
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+      networks:
+        - dev
+
 networks:
   dev:
     external: false

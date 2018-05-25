@@ -17,7 +17,7 @@ run_cmd('versioneer install')
 print('Setting up versioneer.')
 
 run_cmd('git add *')
-run_cmd(['git' 'commit', '-m', 'Initial commit from project template.'])
+run_cmd(['git', 'commit', '-m', 'Initial commit from project template.'])
 run_cmd('git tag v0.0.0')
 print('Created initial commit and tagged as v0.0.0')
 
@@ -26,5 +26,5 @@ run_cmd('git remote add origin remote '
 print('Added remote origin: '
       'git@github.com:/datarevenue-berlin/{{cookiecutter.repo_name}}')
 print('Use:\n'
-      'git git push -u origin master\n'
+      'git push -u origin master\n'
       'to create github repository')

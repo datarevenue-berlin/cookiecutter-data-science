@@ -3,3 +3,4 @@ mkdocs-cinder
 cookiecutter
 pytest
 jupyterlab
+versioneer

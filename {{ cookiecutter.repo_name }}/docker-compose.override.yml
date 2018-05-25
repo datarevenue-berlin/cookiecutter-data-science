@@ -1,0 +1,21 @@
+version: '2.1'
+services:
+    dask-worker:
+      image: drtools/{{ cookiecutter.repo_name }}:dev
+      volumes:
+        - ${MODULES_PATH-..}/sparsity:/home/drtools/sparsity
+        - ${MODULES_PATH-..}/drtools:/home/drtools/drtools
+        - ${MODULES_PATH-..}/{{ cookiecutter.repo_name }}:/home/drtools/{{ cookiecutter.repo_name }}
+
+      environment:
+        - PYTHONPATH=/home/drtools/{{ cookiecutter.repo_name }}/:/home/drtools/drtools/:/home/drtools/sparsity/
+
+    controller:
+      image: drtools/{{ cookiecutter.repo_name }}:dev
+      volumes:
+        - ${MODULES_PATH-..}/sparsity:/home/drtools/sparsity
+        - ${MODULES_PATH-..}/drtools:/home/drtools/drtools
+        - ${MODULES_PATH-..}/{{ cookiecutter.repo_name }}:/home/drtools/{{ cookiecutter.repo_name }}
+
+      environment:
+        - PYTHONPATH=/home/drtools/{{ cookiecutter.repo_name }}/:/home/drtools/drtools/:/home/drtools/sparsity/
