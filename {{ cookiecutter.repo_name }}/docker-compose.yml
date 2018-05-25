@@ -26,7 +26,7 @@ services:
     dask-worker:
       image: drtools/drtools:latest
       volumes:
-        - "$PWD/root_dir:/home/drtools/{{ cookiecutter.repo_name }}/root_dir"
+        - "./root_dir:/home/drtools/{{ cookiecutter.repo_name }}/root_dir"
       ports:
         - "8789:8789"
       networks:
