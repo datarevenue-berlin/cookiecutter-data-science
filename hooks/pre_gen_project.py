@@ -5,12 +5,12 @@ from subprocess import check_output, CalledProcessError
 
 MODULE_REGEX = r'^[_a-zA-Z][_a-zA-Z0-9]+$'
 
-module_name = '{{ cookiecutter.module_name }}'
+module_name = '{{ cookiecutter.repo_name }}'
 
 
 def check_versioneer():
     try:
-        import versioneer
+        check_output(['versioneer', '--version'])
     except ImportError:
         return False
     return True
