@@ -1,19 +1,18 @@
-from tempfile import mktemp
+from pathlib import Path
+import logging.config
+import yaml
 
-import luigi
-import logging
 
-logger = logging.getLogger('luigi-interface')
+def init_logging(default_level=logging.INFO):
+    log_conf_file = Path(__file__).parent.joinpath('logging.yml')
+    try:
+        with open(log_conf_file) as fp:
+            config = yaml.safe_load(fp)
+            print(config)
+        logging.config.dictConfig(config)
+    except FileNotFoundError:
+        logging.basicConfig(level=default_level)
+        logging.getLogger(__name__).warning('Error configuring logging.')
 
-class MakeForecast(luigi.Task):
 
-    def requires(self):
-        return None
-
-    def run(self):
-        logger.info("Project setup successful correctly")
-        with self.output().open('w') as f:
-            f.write("YEY")
-
-    def output(self):
-        return luigi.LocalTarget(mktemp())
+init_logging()

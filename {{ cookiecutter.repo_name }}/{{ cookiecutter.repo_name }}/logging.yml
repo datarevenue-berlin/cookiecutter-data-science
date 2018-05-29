@@ -1,0 +1,24 @@
+version: 1
+disable_existing_loggers: true
+# Configuring the default (root) logger is highly recommended
+root:
+  level: INFO
+  handlers: [console]
+loggers:
+  # Logging from application
+  {{cookiecutter.repo_name}}:
+    level: INFO
+    handlers: [console]
+    qualname: {{cookiecutter.repo_name}}
+    propagate: false
+handlers:
+  console:
+    class: logging.StreamHandler
+    stream: ext://sys.stdout
+    formatter: simpleFormatter
+    level: INFO
+formatters:
+  simpleFormatter:
+    class: logging.Formatter
+    format: '%(name)s %(asctime)s %(levelname)s %(message)s'
+    datefmt: '%Y-%m-%d %H:%M:%S'
