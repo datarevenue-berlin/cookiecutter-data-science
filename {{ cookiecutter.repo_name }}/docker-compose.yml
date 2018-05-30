@@ -40,11 +40,20 @@ services:
 
     controller:
       image: drtools/{{ cookiecutter.repo_name }}:latest
+      user: root
+      depends_on:
+        - dask-scheduler
+        - dask-worker
+        - luigid
       volumes:
         - /var/run/docker.sock:/var/run/docker.sock
         - ./root_dir:/home/drtools/{{ cookiecutter.repo_name }}/root_dir
       networks:
         - dev
+      environment:
+        - DRTOOLS_SETTINGS_MODULE={{ cookiecutter.repo_name }}.settings.default
+        - HOST_ROOT=$PWD/root_dir
+        - CONTROLLER=1
 
 # Uncomment this section and set SMTP_PASS var to enable luigi notifications
 #    smtp-relay:

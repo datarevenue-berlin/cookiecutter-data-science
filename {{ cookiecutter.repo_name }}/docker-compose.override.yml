@@ -19,3 +19,4 @@ services:
       environment:
         - PYTHONPATH=/home/drtools/{{ cookiecutter.repo_name }}/:/home/drtools/drtools/:/home/drtools/sparsity/
         - DRTOOLS_SETTINGS_MODULE={{ cookiecutter.repo_name }}.settings.dev
+        - MODULES_PATH

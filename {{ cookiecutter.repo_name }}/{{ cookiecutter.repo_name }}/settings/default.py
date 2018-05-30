@@ -1,16 +1,22 @@
 import os
+from pathlib import Path
 import pandas as pd
 
 DEBUG = True
 
+# ROOT = Path(__file__).parents[3].joinpath('root_dir')
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),
                                     '..', '..', 'root_dir'))
+
+# If set controller will use it to map code into the containers
+HOST_ROOT = os.environ.get('HOST_ROOT', ROOT)
+
 FS_OPTS = {}
 CONTAINER_TASK_ENV = {
     'DRTOOLS_SETTINGS_MODULE': '{{cookiecutter.project_name}}.settings.default'
 }
 CONTAINER_TASK_VOLUMES = {
-    ROOT: {'bind': '/home/drtools/{{cookiecutter.project_name}}/root_dir'}
+    HOST_ROOT: {'bind': '/home/drtools/{{cookiecutter.project_name}}/root_dir'}
 }
 CONTAINER_TASK_IMAGE = 'drtools/{{ cookiecutter.repo_name }}:latest'
 CONTAINER_TASK_NET = '{{cookiecutter.repo_name}}_dev'
