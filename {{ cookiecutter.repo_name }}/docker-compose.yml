@@ -43,6 +43,15 @@ services:
       networks:
         - dev
 
+# Uncomment this section and set SMTP_PASS var to enable luigi notifications
+#    smtp-relay:
+#      image: juanluisbaptiste/postfix:latest
+#      environment:
+#        - SMTP_SERVER=mail.privateemail.com
+#        - SMTP_USERNAME=luigi@datarevenue.de
+#        - SMTP_PASSWORD=$SMTP_PASS
+#        - SERVER_HOSTNAME=datarevenue.de
+
 networks:
   dev:
     external: false
