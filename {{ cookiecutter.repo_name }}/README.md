@@ -6,20 +6,23 @@
 
     ├── LICENSE
     ├── README.md          <- The top-level README for developers using this project.
-    ├── data
-    │   ├── external       <- Data from third party sources.
-    │   ├── interim        <- Intermediate data that has been transformed.
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │   └── raw            <- The original, immutable data dump.
+    ├── root_dir           <- The root filesystem mapping directory. This 
+    │   │                     can be and will be replaced with remote file-
+    │   │                     systems to scale the application up to real world
+    │   │                     data.
+    │   ├── models         <- Trained and serialized models, model predictions, or model summaries
+    │   │   │                 Naming convention <model-type>-<param-desc>-<train-dates-hash>-<feature-hash>
+    │   │   └── predictions<- predictions on full test datasets. Naming convention a model description
+    │   │                     and a '-' delimited date descriptor '<model-id>-2016-01-01'
+    │   └── data
+    │       ├── external   <- Data from third party sources.
+    │       ├── interim    <- Intermediate data that has been transformed.
+    │       ├── processed  <- The final, canonical data sets for modeling.
+    │       └── raw        <- The original, immutable data dump.
     │
     ├── deploy             <- deployment configurations
     │   
     ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
-    │
-    ├── models             <- Trained and serialized models, model predictions, or model summaries
-    │                         Naming convention <model-type>-<param-desc>-<train-dates-hash>-<feature-hash>
-    │   └── predictions    <- predictions on full test datasets. Naming convention a model description
-    │                         and a '-' delimited date descriptor '<model-id>-2016-01-01'
     │
     ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
     │   │                     the creator's initials, and a short `-` delimited description, e.g.
@@ -59,11 +62,10 @@
 
 ## Get Started
 
-1. Instantiate template: `cookiecutter https://github.com/datarevenue-berlin/project-template.git`
-2. Install project locally (use venv): `pip install -e <project_name>`
-3. Build project container: `docker build -t <project-name> .`
-3. Start up local dask cluster `docker-compose -f <project-name>/deploy/docker-compose.yml up -d`
-4. Run the example task: `luigi --module <project_name>.task Example`
+1. Install project locally (use venv): `pip install -e {{cookiecutter.repo_name}}`
+1. Build project container: `docker build -t {{cookiecutter.repo_name}}:latest .`
+1. Start up local services: `cd {{cookiecutter.repo_name}}; docker-compose up -d`
+1. Run the example task: `luigi --module {{cookiecutter.repo_name}}.task Example`
 
 Code is ran inside docker containers which are seen as a logical task unit in a
 machine learning pipeline [see more](https://app.stiki.io/notes/16749-460-Tasks-as-Containers---Architecture)

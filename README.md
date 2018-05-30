@@ -8,20 +8,23 @@ Inspired by on [cookiecutter-data-science](http://drivendata.github.io/cookiecut
 
     ├── LICENSE
     ├── README.md          <- The top-level README for developers using this project.
-    ├── data
-    │   ├── external       <- Data from third party sources.
-    │   ├── interim        <- Intermediate data that has been transformed.
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │   └── raw            <- The original, immutable data dump.
+    ├── root_dir           <- The root filesystem mapping directory. This 
+    │   │                     can be and will be replaced with remote file-
+    │   │                     systems to scale the application up to real world
+    │   │                     data.
+    │   ├── models         <- Trained and serialized models, model predictions, or model summaries
+    │   │   │                 Naming convention <model-type>-<param-desc>-<train-dates-hash>-<feature-hash>
+    │   │   └── predictions<- predictions on full test datasets. Naming convention a model description
+    │   │                     and a '-' delimited date descriptor '<model-id>-2016-01-01'
+    │   └── data
+    │       ├── external   <- Data from third party sources.
+    │       ├── interim    <- Intermediate data that has been transformed.
+    │       ├── processed  <- The final, canonical data sets for modeling.
+    │       └── raw        <- The original, immutable data dump.
     │
     ├── deploy             <- deployment configurations
     │   
     ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
-    │
-    ├── models             <- Trained and serialized models, model predictions, or model summaries
-    │                         Naming convention <model-type>-<param-desc>-<train-dates-hash>-<feature-hash>
-    │   └── predictions    <- predictions on full test datasets. Naming convention a model description
-    │                         and a '-' delimited date descriptor '<model-id>-2016-01-01'
     │
     ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
     │   │                     the creator's initials, and a short `-` delimited description, e.g.
@@ -60,7 +63,7 @@ Inspired by on [cookiecutter-data-science](http://drivendata.github.io/cookiecut
 
 ### Requirements to use the cookiecutter template:
 -----------
- - Python 2.7 or 3.5
+ - Python>=3.5
  - [Cookiecutter Python package](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 1.4.0: This can be installed with pip by or conda depending on how you manage your Python packages:
 
 ``` bash
@@ -89,14 +92,14 @@ pip install -e <project_name>
 # Build project's container
 docker build -t <project-name> .
 
-# Start up local dask cluster
-docker-compose -f <project-name>/deploy/docker-compose.yml up -d
+# Start up local services
+cd <project-name>; docker-compose up -d
 
 # Run the example task
 luigi --module <project_name>.task Example
 ```
 
-Code is ran inside docker containers which are seen as a logical task unit in a
+Code is ran inside docker containers which are seen as a logical task units in a
 machine learning pipeline [see more](https://app.stiki.io/notes/16749-460-Tasks-as-Containers---Architecture)
 
 
