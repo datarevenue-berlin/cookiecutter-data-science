@@ -8,7 +8,6 @@ def init_logging(default_level=logging.INFO):
     try:
         with open(log_conf_file) as fp:
             config = yaml.safe_load(fp)
-            print(config)
         logging.config.dictConfig(config)
     except FileNotFoundError:
         logging.basicConfig(level=default_level)
