@@ -1,3 +1,5 @@
+from logging import getLogger
+
 import luigi
 import datetime as dt
 from drtools.utils.task import DockerTask
@@ -17,7 +19,7 @@ class Example(DockerTask):
         return ClientUpload()
 
     def output(self):
-        return luigi.LocalTarget(PATH['CS_OUT'])
+        return luigi.LocalTarget(str(PATH['CS_OUT']))
 
 
 class Debug(DockerTask):
@@ -31,10 +33,10 @@ class Debug(DockerTask):
         return 'debug-container'
 
     def output(self):
-        return luigi.LocalTarget(PATH['CS_OUT'])
+        return luigi.LocalTarget(str(PATH['CS_OUT']))
 
 
 class ClientUpload(luigi.ExternalTask):
 
     def output(self):
-        return luigi.LocalTarget(PATH['CS_IN'])
+        return luigi.LocalTarget(str(PATH['CS_IN']))

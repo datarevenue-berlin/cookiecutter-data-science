@@ -7,30 +7,17 @@ these paths or path templates on settings or environment variables.
 
 from os import path
 from drtools.conf import settings
+from drtools.core.filesystem import FileStructure
 
-PATH = {}
-PATH_TEMPLATE = {}
+PATH = FileStructure(
+        settings.ROOT,
+        {
+            'EVAL':         ('models', ),
+            'DATA':         ('data', ),
+            'RAW':              ('DATA', 'raw', ),
+            'CS_IN':                ('RAW', 'clickstream.csv'),
+            'PROCESSED':        ('DATA', 'processed', ),
+            'CS_OUT':               ('PROCESSED', 'clickstream.pickle'),
 
-
-def __factory():
-    global PATH_TEMPLATE
-    global PATH
-    PATH.update({
-        'ROOT': settings.ROOT,
-        'RAW_DATA_DIR': path.join(settings.ROOT, 'data', 'raw/'),
-        'PROCESSED_DIR': path.join(settings.ROOT, 'data', 'processed/'),
-        'EVAL_DIR': path.join(settings.ROOT, 'models/'),
-        'CS_IN': path.join(settings.ROOT, 'data', 'raw',
-                           'clickstream.csv'),
-        'CS_OUT': path.join(settings.ROOT, 'data', 'processed',
-                            'clickstream.pickle')
-    })
-    PATH_TEMPLATE.update({
-    })
-
-
-__factory()
-
-
-def refresh():
-    __factory()
+        },
+    )

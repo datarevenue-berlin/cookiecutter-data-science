@@ -16,12 +16,12 @@ def cli():
     log.info('Connected to scheduler')
     log.debug('Reading data from: %s' % PATH['CS_IN'])
 
-    df = delayed(pd.read_csv)(PATH['CS_IN']).compute()
+    df = delayed(pd.read_csv)(str(PATH['CS_IN'])).compute()
 
     log.info('Clickstream loaded:\n{}'.format(str(df)))
     log.debug('Saving clickstream to: %s' % PATH['CS_IN'])
 
-    df.to_pickle(PATH['CS_OUT'])
+    df.to_pickle(str(PATH['CS_OUT']))
 
 
 if __name__ == '__main__':

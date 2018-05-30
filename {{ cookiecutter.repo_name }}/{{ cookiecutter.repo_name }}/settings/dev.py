@@ -20,7 +20,7 @@ try:
     _modules_path = Path(os.environ['MODULES_PATH'])
 
     _sparsity = _modules_path.joinpath('sparsity')
-    _drtools = _modules_path.joinpath('drtools')
+    _drtools = _modules_path.joinpath('drtools_base')
 
     CONTAINER_TASK_VOLUMES.update({
         str(_modules_path.joinpath('{{ cookiecutter.repo_name }}')):
