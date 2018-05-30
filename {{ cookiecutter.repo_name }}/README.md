@@ -62,9 +62,29 @@
 
 ## Get Started
 
-1. Build project container: `docker build -t drtools/{{cookiecutter.repo_name}}:latest .`
-1. Run the example task: `docker-compose run controller luigi --module {{cookiecutter.repo_name}}.task Example`
+1. Set MODULES_PATH this is the directory that contains the current project as well as dependencies like sparsity and drtools `MODULES_PATH=..`
+1. Run the example task: `docker-compose run controller Example`
 
-Code is ran inside docker containers which are seen as a logical task unit in a
-machine learning pipeline [see more](https://app.stiki.io/notes/16749-460-Tasks-as-Containers---Architecture)
+This will run the project in development environment. This means that code from
+your host is mapped to the respective directories in the container, avoiding to
+rebuild images on every code change. 
+
+To run without dev mode it is sufficient to specify the `-f docker-compose.yml`
+option this will disable dev mode and run the project in default mode which
+only maps the root_dir into the container.
+
+## Debug
+
+To get a shell inside a task you can use 
+
+`docker-compose run controller Debug`
+
+This will execute a dummy task which just sleeps for 24h. To get the interactive
+shell look up the container id and run:
+
+`docker exec -ti <container_id> bash`
+
+
+## Architecture
+[see more](https://app.stiki.io/notes/16749-460-Tasks-as-Containers---Architecture)
 

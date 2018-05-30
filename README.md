@@ -86,22 +86,15 @@ daemon running.
 # Instantiate template
 cookiecutter https://github.com/datarevenue-berlin/project-template.git
 
-# Install project locally (possibly use venv/conda)
-pip install -e <project_name>
+# cd into project
+cd <repo_name>
 
-# Build project's container
-docker build -t drtools/<project-name> .
-
-# Start up local services
-cd <project-name>; docker-compose up -d
-
-# Run the example task
-luigi --module <project_name>.task Example
+# Build/Pull images and run example task
+docker-compose -f docker-compose.yml run controller Example
 ```
 
 Code is ran inside docker containers which are seen as a logical task units in a
 machine learning pipeline [see more](https://app.stiki.io/notes/16749-460-Tasks-as-Containers---Architecture)
-
 
 ### Running the tests
 ------------
