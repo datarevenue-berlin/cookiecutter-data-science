@@ -34,4 +34,4 @@ formatters:
     datefmt: '%Y-%m-%d %H:%M:%S'
   container:
     class: logging.Formatter
-    format: 'CONTAINER| %(message)s'
+    format: '|CONTAINER| %(message)s'

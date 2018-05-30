@@ -63,6 +63,7 @@ services:
         - DRTOOLS_SETTINGS_MODULE={{ cookiecutter.repo_name }}.settings.default
         - HOST_ROOT=$PWD/root_dir
         - CONTROLLER=1
+      entrypoint: ['luigi', '--module', '{{cookiecutter.repo_name}}.task']
 
 # Uncomment this section and set SMTP_PASS var to enable luigi notifications
 #    smtp-relay:
