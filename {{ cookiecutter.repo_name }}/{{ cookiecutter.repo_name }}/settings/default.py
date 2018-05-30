@@ -12,7 +12,8 @@ CONTAINER_TASK_ENV = {
 CONTAINER_TASK_VOLUMES = {
     ROOT: {'bind': '/home/drtools/{{cookiecutter.project_name}}/root_dir'}
 }
-CONTAINER_TASK_NET = '{{cookiecutter.project_name}}_dev'
+CONTAINER_TASK_IMAGE = 'drtools/{{ cookiecutter.repo_name }}:latest'
+CONTAINER_TASK_NET = '{{cookiecutter.repo_name}}_dev'
 
 # ---------------------- Data Processing --------------------
 
