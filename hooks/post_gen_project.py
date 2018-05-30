@@ -21,10 +21,10 @@ run_cmd(['git', 'commit', '-m', 'Initial commit from project template.'])
 run_cmd('git tag v0.0.0')
 print('Created initial commit and tagged as v0.0.0')
 
-run_cmd('git remote add origin remote '
-        'git@github.com:/datarevenue-berlin/{{cookiecutter.repo_name}}')
+run_cmd(['git', 'remote', 'add', 'origin',
+         'git@github.com:/datarevenue-berlin/{{cookiecutter.repo_name}}'])
 print('Added remote origin: '
       'git@github.com:/datarevenue-berlin/{{cookiecutter.repo_name}}')
-print('Use:\n'
-      'git push -u origin master\n'
+print('Use:\n\n'
+      'git push -u origin master\n\n'
       'to create github repository')
