@@ -62,10 +62,8 @@
 
 ## Get Started
 
-1. Install project locally (use venv): `pip install -e {{cookiecutter.repo_name}}`
-1. Build project container: `docker build -t {{cookiecutter.repo_name}}:latest .`
-1. Start up local services: `cd {{cookiecutter.repo_name}}; docker-compose up -d`
-1. Run the example task: `luigi --module {{cookiecutter.repo_name}}.task Example`
+1. Build project container: `docker build -t drtools/{{cookiecutter.repo_name}}:latest .`
+1. Run the example task: `docker-compose run controller luigi --module {{cookiecutter.repo_name}}.task Example`
 
 Code is ran inside docker containers which are seen as a logical task unit in a
 machine learning pipeline [see more](https://app.stiki.io/notes/16749-460-Tasks-as-Containers---Architecture)

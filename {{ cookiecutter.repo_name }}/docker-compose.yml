@@ -12,6 +12,9 @@ services:
           aliases: [luigid]
 
     dask-scheduler:
+      build:
+        context: .
+        dockerfile: Dockerfile
       image: drtools/drtools:latest
       command: dask-scheduler
       container_name: {{ cookiecutter.repo_name }}_dask-scheduler
@@ -24,6 +27,9 @@ services:
 
 
     dask-worker:
+      build:
+        context: .
+        dockerfile: Dockerfile
       image: drtools/{{ cookiecutter.repo_name }}:latest
       depends_on:
         - dask-scheduler
@@ -39,6 +45,9 @@ services:
                  --memory-limit {{cookiecutter.dask_mem_limit}}
 
     controller:
+      build:
+        context: .
+        dockerfile: Dockerfile
       image: drtools/{{ cookiecutter.repo_name }}:latest
       user: root
       depends_on:
