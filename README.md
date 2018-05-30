@@ -90,7 +90,7 @@ cookiecutter https://github.com/datarevenue-berlin/project-template.git
 pip install -e <project_name>
 
 # Build project's container
-docker build -t <project-name> .
+docker build -t drtools/<project-name> .
 
 # Start up local services
 cd <project-name>; docker-compose up -d
