@@ -6,12 +6,8 @@ from .structure import PATH
 class Example(DockerTask):
 
     @property
-    def image(self):
-        return 'test-template'
-
-    @property
     def command(self):
-        return ['python', '-m', 'project_name.data.dataset']
+        return ['python', '-m', '{{cookiecutter.repo_name}}.data.dataset']
 
     @property
     def name(self):
@@ -19,6 +15,20 @@ class Example(DockerTask):
 
     def requires(self):
         return ClientUpload()
+
+    def output(self):
+        return luigi.LocalTarget(PATH['CS_OUT'])
+
+
+class Debug(DockerTask):
+
+    @property
+    def command(self):
+        return ['sleep', '24h']
+
+    @property
+    def name(self):
+        return 'debug-container'
 
     def output(self):
         return luigi.LocalTarget(PATH['CS_OUT'])
