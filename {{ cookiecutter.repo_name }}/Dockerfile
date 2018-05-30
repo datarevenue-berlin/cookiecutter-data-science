@@ -1,8 +1,10 @@
 FROM drtools/drtools:latest
 USER root
 
-# Add required linux packages
-# RUN apk --update add graphviz
+# Add docker so controller is able to access host docker engine
+# you might want to move this command to a separate Dockerfile
+# to keep image size minimal
+RUN apk --update add docker
 
 
 # Copy over requirements and install them
@@ -12,11 +14,13 @@ RUN pip install -r /home/drtools/requirements.txt && \
 
 # Copy over repository and install
 COPY . /home/drtools/{{ cookiecutter.repo_name }}
-RUN pip install -e /home/drtools/{{ cookiecutter.repo_name }}
+RUN pip install --no-deps -e /home/drtools/{{ cookiecutter.repo_name }}
 
 # Copy configurations into place if needed
+
 COPY conf/dask-config.yml /home/drtools/.dask/config.yml
-COPY conf/logging.cfg /etc/luigi/luigi-logging.cfg
+COPY conf/luigi-logging.cfg /etc/luigi/luigi-logging.cfg
 COPY conf/luigi.cfg /etc/luigi/client.cfg
 
+RUN chown -R drtools:drtools /home/drtools/.dask
 USER drtools
