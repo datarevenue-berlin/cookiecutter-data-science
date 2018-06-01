@@ -1,8 +1,10 @@
 import os
 import shutil
+import subprocess
 
 from cookiecutter import main
 import pytest
+import docker
 
 CCDS_ROOT = os.path.abspath(
                 os.path.join(
@@ -29,6 +31,32 @@ def default_baked_project(tmpdir):
 
     # cleanup after
     shutil.rmtree(out_dir)
+
+
+def test_docker_build(default_baked_project):
+    c = docker.from_env()
+    c.images.build(path=default_baked_project,
+                   tag='test-template')
+
+
+def test_example(default_baked_project):
+    c = docker.from_env()
+    compose_file = os.path.join(default_baked_project, 'deploy',
+                                'docker-compose.yml')
+
+    c.images.build(path=default_baked_project,
+                   tag='test-template')
+
+    cmd = 'docker-compose -f {} up -d'.format(compose_file).split()
+    subprocess.check_output(cmd)
+
+    cmd = 'DRTOOLS_SETTINGS_MODULE=project_name.settings.default ' \
+          'PYTHONPATH={}:$PYTHONPATH luigi ' \
+          '--scheduler-host localhost ' \
+          '--module project_name.task Example'\
+        .format(default_baked_project)
+    o = subprocess.check_output(cmd.split(),
+                                shell=True, stderr=subprocess.STDOUT)
 
 
 def test_readme(default_baked_project):
@@ -67,7 +95,7 @@ def test_folders(default_baked_project):
         os.path.join('reports', 'figures'),
         'project_name',
         os.path.join('project_name', 'data'),
-        os.path.join('project_name', 'features'),
+        os.path.join('project_name', 'settings'),
         os.path.join('project_name', 'models'),
         os.path.join('project_name', 'analysis')
     ]

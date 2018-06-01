@@ -1,0 +1,1 @@
+include {{cookiecutter.repo_name}}/logging.yml
