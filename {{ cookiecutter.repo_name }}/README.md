@@ -62,7 +62,7 @@
 
 ## Get Started
 
-1. Set MODULES_PATH this is the directory that contains the current project as well as dependencies like sparsity and drtools `MODULES_PATH=..`
+1. Set MODULES_PATH this is the absolute path to the directory that contains the current project as well as dependencies like sparsity and drtools `MODULES_PATH=..`
 1. Run the example task: `docker-compose run controller Example`
 
 This will run the project in development environment. This means that code from

@@ -21,12 +21,10 @@ try:
 
     _sparsity = _modules_path.joinpath('sparsity')
     _drtools = _modules_path.joinpath('drtools_base')
+    _project = _modules_path.joinpath('{{ cookiecutter.repo_name }}')
 
-    CONTAINER_TASK_VOLUMES.update({
-        str(_modules_path.joinpath('{{ cookiecutter.repo_name }}')):
-            {'bind': '/home/drtools/{{ cookiecutter.repo_name }}',
-             'mode': 'ro'},
-    })
+    CONTAINER_TASK_VOLUMES[str(_project)] = \
+        {'bind': '/home/drtools/{{ cookiecutter.repo_name }}', 'mode': 'ro'}
 
     CONTAINER_TASK_VOLUMES[str(_sparsity)] = \
         {'bind': '/home/drtools/sparsity', 'mode': 'ro'}

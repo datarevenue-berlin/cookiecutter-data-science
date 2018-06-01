@@ -10,14 +10,13 @@ from drtools.conf import settings
 from drtools.core.filesystem import FileStructure
 
 PATH = FileStructure(
-        settings.ROOT,
-        {
-            'EVAL':         ('models', ),
-            'DATA':         ('data', ),
-            'RAW':              ('DATA', 'raw', ),
-            'CS_IN':                ('RAW', 'clickstream.csv'),
-            'PROCESSED':        ('DATA', 'processed', ),
-            'CS_OUT':               ('PROCESSED', 'clickstream.pickle'),
-
-        },
-    )
+    settings.ROOT,
+    {
+        'EVAL':         ('models', ),
+        'DATA':         ('data', ),
+        'RAW':              ('DATA', 'raw', ),
+        'CS_IN':                ('RAW', 'clickstream.csv'),
+        'PROCESSED':        ('DATA', 'processed', ),
+        'CS_OUT':               ('PROCESSED', 'clickstream.pickle'),
+    },
+)
