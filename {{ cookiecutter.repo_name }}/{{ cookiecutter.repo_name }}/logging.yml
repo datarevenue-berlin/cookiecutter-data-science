@@ -30,7 +30,7 @@ handlers:
 formatters:
   simple:
     class: logging.Formatter
-    format: '%(name)s %(asctime)s %(levelname)s %(message)s'
+    format: '%(asctime)s %(name)-26s %(levelname)-7s %(message)s'
     datefmt: '%Y-%m-%d %H:%M:%S'
   container:
     class: logging.Formatter
