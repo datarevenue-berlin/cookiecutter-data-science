@@ -10,12 +10,16 @@ from ..structure import PATH
 
 @click.command()
 def cli():
+    log = getLogger(__name__)
     c = Client('dask-scheduler:8786')
+    log.info('Connected to scheduler')
+    read_and_dump_using_dask()
+
+
+def read_and_dump_using_dask():
     log = getLogger(__name__)
 
-    log.info('Connected to scheduler')
     log.debug('Reading data from: %s' % PATH['CS_IN'])
-
     df = delayed(pd.read_csv)(str(PATH['CS_IN'])).compute()
 
     log.info('Clickstream loaded:\n{}'.format(str(df)))

@@ -73,6 +73,44 @@ To run without dev mode it is sufficient to specify the `-f docker-compose.yml`
 option this will disable dev mode and run the project in default mode which
 only maps the root_dir into the container.
 
+## (Re)build image
+```bash
+# Set current branch name as tag
+export TAG=$(git rev-parse --abbrev-ref HEAD)
+
+# Build image tagged as current branch name
+docker build- t drtools/{{cookiecutter.repo_name}}:$TAG .
+```
+
+## Tests
+Unittests usually run on your local machine and don't depend on any services.
+
+During integration tests your local machine serves as controller. This usually
+makes debugging easier. Services must be started with docker-compose. This 
+requires you though to have the current project installed in your python env:
+
+### Unittests
+```bash
+# Configures environment to dev
+source env.sh
+
+# Runs unittests
+py.test {{cookiecutter.repo_name}}
+```
+Alternatively you can execute above commands inside the container.
+
+## Integration tests
+```bash
+# Configures environment to dev
+source env.sh
+
+# Start services
+docker-compose up -d
+
+# Execute integration tests
+TEST_INTEGRATION=true py.test {{cookiecutter.repo_name}}/tests/test_integration.py
+```
+
 ## Debug
 
 To get a shell inside a task you can use 

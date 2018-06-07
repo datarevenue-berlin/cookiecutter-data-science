@@ -4,13 +4,9 @@ This module is used to define all filepaths and/or keys
 used in the project. the __factory function is used to build
 these paths or path templates on settings or environment variables.
 """
-
-from os import path
-from drtools.conf import settings
 from drtools.core.filesystem import FileStructure
 
 PATH = FileStructure(
-    settings.ROOT,
     {
         'EVAL':         ('models', ),
         'DATA':         ('data', ),
