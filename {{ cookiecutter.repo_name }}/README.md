@@ -87,7 +87,7 @@ Unittests usually run on your local machine and don't depend on any services.
 
 During integration tests your local machine serves as controller. This usually
 makes debugging easier. Services must be started with docker-compose. This 
-requires you though to have the current project installed in your python env:
+requires you though to have the current project installed in your python env.
 
 ### Unittests
 ```bash
@@ -99,7 +99,7 @@ py.test {{cookiecutter.repo_name}}
 ```
 Alternatively you can execute above commands inside the container.
 
-## Integration tests
+### Integration tests
 ```bash
 # Configures environment to dev
 source env.sh
