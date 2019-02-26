@@ -7,14 +7,21 @@ packages = find_packages()
 with open('requirements.txt') as fp:
     dependencies = fp.readlines()
 
-setup(name='{{cookiecutter.repo_name}}',
-      version=versioneer.get_version(),
-      cmdclass=versioneer.get_cmdclass(),
-      description='{{cookiecutter.description}}',
-      author='Datarevenue GmbH',
-      author_email='info@datarevenue.de',
-      install_requires=dependencies,
-      packages=packages,
-      zip_safe=False,
-      include_package_data=True
-      )
+with open('requirements-test.txt') as fp:
+    test_dependencies = fp.readlines()
+
+setup(
+    name='{{cookiecutter.repo_name}}',
+    version=versioneer.get_version(),
+    cmdclass=versioneer.get_cmdclass(),
+    description='{{cookiecutter.description}}',
+    author='Data Revenue GmbH',
+    author_email='markus@datarevenue.com',
+    install_requires=dependencies,
+    extras_require={
+        'test': test_dependencies,
+    },
+    packages=packages,
+    zip_safe=False,
+    include_package_data=True
+)

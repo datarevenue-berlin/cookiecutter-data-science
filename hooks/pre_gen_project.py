@@ -11,7 +11,7 @@ module_name = '{{ cookiecutter.repo_name }}'
 def check_versioneer():
     try:
         check_output(['versioneer', '--version'])
-    except ImportError:
+    except:
         return False
     return True
 
@@ -19,7 +19,7 @@ def check_versioneer():
 def check_git():
     try:
         check_output('git --version'.split(' '))
-    except CalledProcessError:
+    except:
         return False
     return True
 
